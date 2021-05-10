@@ -12,13 +12,19 @@
         if (window.JOONBOT_WIDGET_ID) {
             console.warn("Joonbot snippet included twice");
         } else {
-            window.JOONBOT_MODE = "embed";
+            window.JOONBOT_MODE = getUrlParameter("bot-mode");
             window.JOONBOT_WIDGET_ID = getUrlParameter("bot-id");
             var n, o;
             o = document.createElement("script");
             o.src = "https://js.joonbot.com/init.js", o.defer = !0, o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous";
             n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
+
+            if (window.JOONBOT_MODE === "embed") {
+                const newDiv = document.createElement("div");
+                newDiv.setAttribute("id", "joonbot-embed");
+                newDiv.style.cssText = 'background-color:white;width:100%;max-widht:100%;height:100%;';
+                document.getElementsByTagName("BODY")[0].appendChild(newDiv);
+            }
         }
     }()
 </script>
-<div id="joonbot-embed" style="background-color:white;width:100%;max-widht:100%;height:100%;"></div>
